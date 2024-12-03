@@ -1,0 +1,28 @@
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: user-service-route
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - StripPrefix=1
+        - id: content-onboarding-service-route
+          uri: lb://CONTENT-ONBOARDING-SERVICE
+          predicates:
+            - Path=/content-onboarding-service/**
+          filters:
+            - StripPrefix=1
+        - id: content-service-route
+          uri: lb://CONTENT-SERVICE
+          predicates:
+            - Path=/content-service/**
+          filters:
+            - StripPrefix=1
